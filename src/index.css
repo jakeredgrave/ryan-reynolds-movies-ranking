@@ -1,13 +1,101 @@
-body {
+@import url("https://fonts.googleapis.com/css2?family=Fredoka&family=Oswald&family=Press+Start+2P&display=swap");
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: "Lato", sans-serif;
+  line-height: 1.6;
+}
+
+h1,
+h2 {
+  font-weight: 300;
+  line-height: 1.2;
+  margin: 10px 0;
+}
+
+p {
+  margin: 10px 0;
+}
+
+img {
+  width: 100%;
+}
+
+.header {
+  background-color: black;
+  color: #fff;
+  height: 100px;
+  font-size: 24px;
+  position: relative;
+  margin-bottom: 100px;
+}
+
+.header:before,
+.header:after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  height: 100px;
+  bottom: -50px;
+  right: 0;
+  left: 0;
+  background-color: black;
+  transform: skewY(-2deg);
+  -webkit-transform: skewY(-2deg);
+  -moz-transform: skewY(-2deg);
+  -ms-transform: skewY(-2deg);
+}
+
+.ranking-box.card {
+  width: 1400px;
+  margin: 0 auto;
+  border-radius: 0px;
+}
+
+/* Utilities */
+
+.container {
+  max-width: 1100px;
+  padding: 0 40px;
+  margin: 0 auto;
+  overflow: auto;
+  height: 100%;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background-color: #fff;
+  color: #333;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 10px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 30px;
+  cursor: pointer;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px #fff solid;
+}
+
+.btn:hover {
+  transform: scale(0.98);
 }
