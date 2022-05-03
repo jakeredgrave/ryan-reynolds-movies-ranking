@@ -1,4 +1,14 @@
-const MovieInfoModal = ({ selectedMovieInfo, onClose }) => {
+import { useState } from "react";
+
+const MovieInfoModal = ({ selectedMovieInfo, onClose, onChange }) => {
+  const [movieRating, setMovieRating] = useState(selectedMovieInfo.rating);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    let id = selectedMovieInfo.id;
+    onChange({ movieRating, id });
+  };
+
   return (
     <div className="modal-blur">
       <div className="movie-info-box-modal">
@@ -19,6 +29,15 @@ const MovieInfoModal = ({ selectedMovieInfo, onClose }) => {
 
           <div className="movie-info-box-rating">
             <p>Rating: {selectedMovieInfo.rating}</p>
+
+            <form onSubmit={onSubmit}>
+              <input
+                type="number"
+                name="test"
+                value={movieRating}
+                onChange={(e) => setMovieRating(e.target.value)}
+              />
+            </form>
           </div>
         </div>
       </div>

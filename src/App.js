@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Ranking from "./Components/Ranking";
 import AddMovieModal from "./Components/AddMovieModal";
 import cover1 from "./Pictures/The-Proposal.jpg";
@@ -12,7 +12,7 @@ function App() {
       title: "The Proposal",
       description: "Guy gets married to his boss.",
       cover: cover1,
-      rating: 8,
+      rating: 5,
     },
     {
       id: 2,
@@ -30,6 +30,7 @@ function App() {
       rating: 8,
     },
   ]);
+
   const [showAddMovieForm, setShowAddMovieForm] = useState(false);
   const [showMovieInfoModal, setShowMovieInfoModal] = useState(false);
 
@@ -38,23 +39,50 @@ function App() {
     title: "",
     description: "",
     cover: cover2,
-    myRemarks: "",
+    myRemarks: "HEHEHE",
     rating: 0,
   });
 
+  // Opening Modal with information about selected movie
+
   const openInfoModal = (movie) => {
-    setSelectedMovieInfo((selectedMovieInfo) => ({
-      ...selectedMovieInfo,
+    const selectedMovieInfoCopy = { ...selectedMovieInfo };
+    setSelectedMovieInfo((selectedMovieInfoCopy) => ({
+      ...selectedMovieInfoCopy,
       ...movie,
     }));
     setShowMovieInfoModal(!showMovieInfoModal);
   };
+
+  // Sorting Movies by rating
+
+  const sortMovies = () => {
+    const moviesListCopy = [...moviesList];
+    const sortedMovies = moviesListCopy.sort((movie1, movie2) =>
+      movie1.rating < movie2.rating ? 1 : -1
+    );
+    console.log(sortedMovies);
+    setMoviesList(() => [...sortedMovies]);
+  };
+
+  // Changing movie rating
+
+  const changeRating = ({ movieRating, id }) => {
+    const moviesListCopy = [...moviesList];
+    setMoviesList(
+      moviesListCopy.map((movie) =>
+        movie.id === id ? { ...movie, rating: parseInt(movieRating) } : movie
+      )
+    );
+  };
+  // USE USEEFFECT to change value of rating inside movieinfomodal and sort movies
 
   return (
     <div className="App">
       <div className="header">
         <div className="container flex">
           <h1>Ryan Reynolds' Movies Ranking</h1>
+          <button onClick={sortMovies}>test</button>
         </div>
       </div>
 
@@ -64,6 +92,7 @@ function App() {
         <MovieInfoModal
           selectedMovieInfo={selectedMovieInfo}
           onClose={setShowMovieInfoModal}
+          onChange={changeRating}
         />
       )}
     </div>
