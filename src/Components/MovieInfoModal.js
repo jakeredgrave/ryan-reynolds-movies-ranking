@@ -1,12 +1,8 @@
-import { useState } from "react";
+import { Rating } from "react-simple-star-rating";
 
-const MovieInfoModal = ({ selectedMovieInfo, onClose, onChange }) => {
-  const [movieRating, setMovieRating] = useState(selectedMovieInfo.rating);
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    let id = selectedMovieInfo.id;
-    onChange({ movieRating, id });
+const MovieInfoModal = ({ selectedMovieInfo, onClose, onRatingChange }) => {
+  const handleRating = (rate) => {
+    onRatingChange({ rate });
   };
 
   return (
@@ -29,15 +25,11 @@ const MovieInfoModal = ({ selectedMovieInfo, onClose, onChange }) => {
 
           <div className="movie-info-box-rating">
             <p>Rating: {selectedMovieInfo.rating}</p>
-
-            <form onSubmit={onSubmit}>
-              <input
-                type="number"
-                name="test"
-                value={movieRating}
-                onChange={(e) => setMovieRating(e.target.value)}
-              />
-            </form>
+            <Rating
+              onClick={handleRating}
+              ratingValue={selectedMovieInfo.rating * 10}
+              iconsCount={10}
+            />
           </div>
         </div>
       </div>

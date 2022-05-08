@@ -27,51 +27,72 @@ function App() {
       description:
         "Guy goes back to the future to find his girlfriend, but instead he meets his younger self.",
       cover: cover3,
-      rating: 8,
+      rating: 7,
     },
   ]);
 
   const [showAddMovieForm, setShowAddMovieForm] = useState(false);
   const [showMovieInfoModal, setShowMovieInfoModal] = useState(false);
 
-  const [selectedMovieInfo, setSelectedMovieInfo] = useState({
-    id: 0,
-    title: "",
-    description: "",
-    cover: cover2,
-    myRemarks: "HEHEHE",
-    rating: 0,
-  });
+  // const [selectedMovieInfo, setSelectedMovieInfo] = useState({
+  //   id: 0,
+  //   title: "",
+  //   description: "",
+  //   cover: cover2,
+  //   myRemarks: "HEHEHE",
+  //   rating: 0,
+  // });
+  const [selectedMovieInfoId, setSelectedMovieInfoId] = useState(1);
+
+  // To chyba zwraca cały obiekt (film) z danym ID
+  const selectedMovieInfo = moviesList.find(
+    (movie) => movie.id === selectedMovieInfoId
+  );
+  console.log(selectedMovieInfo);
 
   // Opening Modal with information about selected movie
 
+  // const openInfoModal = (movie) => {
+  //   const selectedMovieInfoCopy = { ...selectedMovieInfo };
+  //   setSelectedMovieInfo((selectedMovieInfoCopy) => ({
+  //     ...selectedMovieInfoCopy,
+  //     ...movie,
+  //   }));
+  //   setShowMovieInfoModal(!showMovieInfoModal);
+  // };
   const openInfoModal = (movie) => {
-    const selectedMovieInfoCopy = { ...selectedMovieInfo };
-    setSelectedMovieInfo((selectedMovieInfoCopy) => ({
-      ...selectedMovieInfoCopy,
-      ...movie,
-    }));
+    setSelectedMovieInfoId(movie.id);
     setShowMovieInfoModal(!showMovieInfoModal);
   };
 
   // Sorting Movies by rating
 
-  const sortMovies = () => {
-    const moviesListCopy = [...moviesList];
-    const sortedMovies = moviesListCopy.sort((movie1, movie2) =>
-      movie1.rating < movie2.rating ? 1 : -1
-    );
-    console.log(sortedMovies);
-    setMoviesList(() => [...sortedMovies]);
-  };
-
+  // const sortMovies = () => {
+  //   const moviesListCopy = [...moviesList];
+  //   const sortedMovies = moviesListCopy.sort((movie1, movie2) =>
+  //     movie1.rating < movie2.rating ? 1 : -1
+  //   );
+  //   console.log(sortedMovies);
+  //   setMoviesList(() => [...sortedMovies]);
+  // };
+  const sortedMovies = [...moviesList].sort(
+    (movie1, movie2) => movie2.rating - movie1.rating
+  );
   // Changing movie rating
 
-  const changeRating = ({ movieRating, id }) => {
-    const moviesListCopy = [...moviesList];
-    setMoviesList(
-      moviesListCopy.map((movie) =>
-        movie.id === id ? { ...movie, rating: parseInt(movieRating) } : movie
+  // const changeRating = ({ movieRating, id }) => {
+  //   const moviesListCopy = [...moviesList];
+  //   setMoviesList(
+  //     moviesListCopy.map((movie) =>
+  //       movie.id === id ? { ...movie, rating: parseInt(movieRating) } : movie
+  //     )
+  //   );
+  // };
+  const changeRating = ({ rate }) => {
+    const id = selectedMovieInfo.id;
+    setMoviesList((moviesList) =>
+      moviesList.map((movie) =>
+        movie.id === id ? { ...movie, rating: parseInt(rate / 10) } : movie
       )
     );
   };
@@ -82,17 +103,19 @@ function App() {
       <div className="header">
         <div className="container flex">
           <h1>Ryan Reynolds' Movies Ranking</h1>
-          <button onClick={sortMovies}>test</button>
+          {/* <button onClick={sortMovies}>test</button> */}
         </div>
       </div>
 
-      <Ranking moviesList={moviesList} onSelect={openInfoModal} />
-      {showAddMovieForm && <AddMovieModal moviesList={moviesList} />}
+      {/* <Ranking moviesList={moviesList} onSelect={openInfoModal} /> */}
+      <Ranking moviesList={sortedMovies} onSelect={openInfoModal} />
+      {/* {showAddMovieForm && <AddMovieModal moviesList={moviesList} />} */}
+      {showAddMovieForm && <AddMovieModal moviesList={sortedMovies} />}
       {showMovieInfoModal && (
         <MovieInfoModal
           selectedMovieInfo={selectedMovieInfo}
           onClose={setShowMovieInfoModal}
-          onChange={changeRating}
+          onRatingChange={changeRating}
         />
       )}
     </div>
