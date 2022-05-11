@@ -4,7 +4,8 @@ const Movie = ({ movie, movieIndex, onSelect }) => {
   return (
     <div className="movie-box" onClick={() => onSelect(movie)}>
       <div className="movie-rank-box">{movieIndex + 1}</div>
-      <img src={movie.cover} alt="" />
+
+      <img src={movie.cover} alt="movie poster" />
       <div className="movie-title-description">
         <h2>{movie.title}</h2>
         <p>{movie.description}</p>

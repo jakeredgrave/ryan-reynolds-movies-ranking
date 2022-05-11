@@ -22,13 +22,13 @@ const MovieInfoModal = ({ selectedMovieInfo, onClose, onRatingChange }) => {
             <h2>My Remarks:</h2>
             <p>{selectedMovieInfo.myRemarks}</p>
           </div>
-
           <div className="movie-info-box-rating">
             <p>Rating: {selectedMovieInfo.rating}</p>
             <Rating
               onClick={handleRating}
               ratingValue={selectedMovieInfo.rating * 10}
-              iconsCount={10}
+              iconsCount={5}
+              allowHalfIcon={true}
             />
           </div>
         </div>
