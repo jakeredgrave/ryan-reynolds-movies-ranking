@@ -1,10 +1,10 @@
 import Movie from "./Movie";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 const Ranking = ({ moviesList, onSelect }) => {
-  useEffect(() => {
-    console.log(moviesList);
-  }, [moviesList]);
+  // useEffect(() => {
+  //   console.log(moviesList);
+  // }, [moviesList]);
   return (
     <div className="ranking-box card">
       {moviesList.map((movie, index) => (
